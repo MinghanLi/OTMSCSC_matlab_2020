@@ -1,30 +1,38 @@
 clc; clear; close all
 currentFolder = pwd; addpath(genpath(currentFolder))
-istransform = 1; % 1 means transformed videos, 0 means static videos without background jitter
-%% initial mask param
-param.alpha = 5; % alpha controls the thresholding, smaller lambda means more mask
-param.rho = 1.5;
-param.istransform=istransform;
-model.use_gpu = 'Ture';
-model.f_size =[13 9 5];    
-model.derain=2; % 1 means Derain=H*B+(1-H)*F, 2 means Derain=X-R
+istransform = 1; % 1 means transofmr
 
-if istransform == 0    
-    model.r=1; model.MaxIter=1; model.isMask=0;
-    model.preAlignment = 0; model.type=3; % 3:rigid, 4:simi, 6:affine, 8:projective
-    model.b=0.001*ones(1,length(model.f_size)); 
-    model.Flamda=0.01;
-    model.display =1 ;
-    model.interval_alignB=200; % 0 means no align B, larger have faster speed, but may degrade perfomance
-    model.strNum=50;
-else   
+if istransform == 0
+    %% initial mask param
+    param.alpha = 5; % alpha controls the thresholding, smaller lambda means more mask
+    param.rho = 1.5;
+    param.istransform=istranform;
+    model.use_gpu = 'Ture';
+    model.f_size =[13 9 5];     
     model.r=1; model.MaxIter=1; model.isMask=0;
     model.preAlignment = 1; model.type=3; % 3:rigid, 4:simi, 6:affine, 8:projective
     model.b=0.001*ones(1,length(model.f_size)); 
     model.Flamda=0.01;
     model.display =1 ;
-    model.interval_alignB=2; % 0 means no align B, larger have faster speed, but may degrade perfomance
+    model.interval_alignB=200; % 0 means no align B, larger have faster speed, but may degrade perfomance
+    model.strNum=50;
+    model.derain=2; % 1 means Derain=H*B+(1-H)*F, 2 means Derain=X-R
+else
+
+    %% initial mask param
+    param.alpha = 5; % alpha controls the thresholding, smaller lambda means more mask
+    param.rho = 1.5;
+    param.istransform=0;
+    model.use_gpu = 'Ture';
+    model.f_size =[13 9 5];     
+    model.r=1; model.MaxIter=1; model.isMask=0;
+    model.preAlignment = 1; model.type=3; % 3:rigid, 4:simi, 6:affine, 8:projective
+    model.b=0.001*ones(1,length(model.f_size)); 
+    model.Flamda=0.01;
+    model.display =1 ;
+    model.interval_alignB=3; % 0 means no align B, larger have faster speed, but may degrade perfomance
     model.strNum=5;
+    model.derain=2; % 1 means Derain=H*B+(1-H)*F, 2 means Derain=X-R
 end
 
 model.video_path='/home/lmh/Downloads/OTMSCSC/OTMSCSC_matlab/input/CDNet/bad_weather/skating/';
