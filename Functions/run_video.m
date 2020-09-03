@@ -25,12 +25,12 @@ for i=1:len-2
     s=tic;
     %% warm 
     if param.istransform == 0 && i==1
-        strNum=model.strNum;
-        % ind=sort(randperm(model.interval_alignB,strNum)+i-1);
-        ind=i:i+strNum-1;
+        strNum=min(model.strNum, len-2);
+        ind=sort(randperm(len-2, strNum)+i-1);
+        % ind=i:i+strNum*2-1;
         X_warm=zeros(imgsize(1),imgsize(2),strNum);
         for j = 1:strNum
-            im_warm=im2double(imread([video_path,path(ind(i)+2).name]));
+            im_warm=im2double(imread([video_path,path(ind(j)+2).name]));
             im_warm_Ycbcr = rgb2ycbcr(im_warm);
             X_warm(:,:,j)=im_warm_Ycbcr(:,:,channel);
         end
@@ -53,7 +53,7 @@ for i=1:len-2
     im_cur = im2double(imread([video_path,path(i+2).name]));
     im_cur_Ycbcr = rgb2ycbcr(im_cur); X = im_cur_Ycbcr(:,:,channel);
     if param.istransform == 0
-        [model,DerainY, Rain, Rains, omega] = OnlineMSCSC_new(X, param, model);% main function
+        [model,DerainY, Rain, Rains] = OnlineMSCSC_new(X, param, model);% main function
         % DerainY = OnlineMSCSC_SS_path(X, param, model); 
     else
         % align background via every 10 frames
