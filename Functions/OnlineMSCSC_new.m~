@@ -1,4 +1,4 @@
- function [model,DeRain, Rain_Fold, Rains_Fold, Omega_Fold] = OnlineMSCSC_new(X_Fold, param, model)  
+ function [model,DeRain, Rain_Fold, Rains_Fold, h_omega_Fold] = OnlineMSCSC_new(X_Fold, param, model)  
     if (~isfield(param,'tol'))
         tol = 1.0e-7;
     else
@@ -155,7 +155,9 @@
         end
         Rain_Fold = reshape(R_conv,[height, wide, n_frames]);  %% for experiments
         Rains_Fold = reshape(Rains,[height, wide, length(model.f_size), n_frames]);  %% for experiments
-     end
+    end
+    model.v(1,:) = model.v(2,:);
+    model.lastframe = X_Fold;
 end
 
 

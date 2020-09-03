@@ -73,22 +73,21 @@ for i=1:ceil((len-2)/model.batch_size)
     %% show
     if display == 1
         for j = 1:n_frames
-            I = Derain(:,:,:,j);
-            R = [Rain,Rains(:,:,1, j),Rains(:,:,2, j),Rains(:,:,3, j)]*30; imshow(R)
-            % imshow([im_cur,Derain,repmat(omega,[1,1,3])]); 
-            if i<10
-                imwrite(I,[model.video_path,'result/000',int2str(i),'.bmp']);
-                imwrite(R,[model.video_path,'rain_layer/000',int2str(i),'.bmp']);
-            elseif i>=10 && i <100
-                imwrite(I,[model.video_path,'result/00',int2str(i),'.bmp']);
-                imwrite(R,[model.video_path,'rain_layer/00',int2str(i),'.bmp']);
-            elseif i>=100 && i <1000
-                imwrite(I,[model.video_path,'result/0',int2str(i),'.bmp']);
-                imwrite(R,[model.video_path,'rain_layer/0',int2str(i),'.bmp']);
-            else
-                imwrite(I,[model.video_path,'result/',int2str(i),'.bmp']);
-                imwrite(R,[model.video_path,'rain_layer/',int2str(i),'.bmp']);
-            end
+        I = Derain;
+        R = [Rain,Rains(:,:,1),Rains(:,:,2),Rains(:,:,3)]*30; imshow(R)
+        % imshow([im_cur,Derain,repmat(omega,[1,1,3])]); 
+        if i<10
+            imwrite(I,[model.video_path,'result/000',int2str(i),'.bmp']);
+            imwrite(R,[model.video_path,'rain_layer/000',int2str(i),'.bmp']);
+        elseif i>=10 && i <100
+            imwrite(I,[model.video_path,'result/00',int2str(i),'.bmp']);
+            imwrite(R,[model.video_path,'rain_layer/00',int2str(i),'.bmp']);
+        elseif i>=100 && i <1000
+            imwrite(I,[model.video_path,'result/0',int2str(i),'.bmp']);
+            imwrite(R,[model.video_path,'rain_layer/0',int2str(i),'.bmp']);
+        else
+            imwrite(I,[model.video_path,'result/',int2str(i),'.bmp']);
+            imwrite(R,[model.video_path,'rain_layer/',int2str(i),'.bmp']);
         end
      end
 end

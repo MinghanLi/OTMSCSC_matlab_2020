@@ -7,6 +7,7 @@ param.rho = 1.5;
 param.istransform=0;
 param.weight=1;
 model.use_gpu = 'Ture';
+model.batch_size = 2;
 model.f_size =[13 9 5];     
 model.r=1; model.MaxIter=1; model.isMask=1;
 model.preAlignment = 0; model.type=3; % 3:rigid, 4:simi, 6:affine, 8:projective

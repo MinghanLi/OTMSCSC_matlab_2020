@@ -22,8 +22,8 @@ FTF  = sum(C_Filters.*Filters,4);     % [h,w,n_frames]
 while(iter < MaxIter && Cond)
     FR = FTX+rho*fft2(Y-MU);            % [h,w,n_frames,K]
     FM = (FR-repmat(sum(Filters.*FR,3)./(rho+FTF), [1,1,K]) .*C_Filters)./rho;  % [h,w,n_frames,K]   
-    M = real(ifft2(FM));   % [h,w,n_frames,K]
-    Y = max(M+MU-lambda/rho,0);  % [h,w,n_frames,K]
+    M = real(ifft2(FM));   % [h,w,n_fK]
+    Y = max(M+MU-lambda/rho,0);  % [h,w,K]
     MU = MU + M - Y;
     if(rho < max_rho)
         rho = rho*1.01;
@@ -36,7 +36,7 @@ while(iter < MaxIter && Cond)
 end
 M = double(gather(Y));
 Rains = double(gather(real(ifft2(FM.*Filters))));
-Rain = max(sum(Rains,4)-5e-3, 0); 
+Rain = max(sum(Rains,3)-5e-3, 0); 
 clear F Filters lambda FX MU Y
 
 
