@@ -1,6 +1,6 @@
-  function  [t, sigma, b] = run_video(video_path, param, model)
+function  [t, sigma, b] = run_video(video_path, param, model)
 %% init
-channel=1;  % Y=1,Cb=2,Cr=3;
+channel=1;  % transfer images from RGB to YCbCr color space, where Y=1,Cb=2,Cr=3;
 path=dir(video_path);
 len=length(path);
 display=model.display;
@@ -10,12 +10,12 @@ firIm=imread([video_path,path(5).name]);
 imgsize=size(firIm);
 
 
-
 %% init mask
  param.Mask = true([imgsize(1),imgsize(2),2]);
  % param.MaskOut = false([imgsize(1),imgsize(2),2]);
  
 %% main 
+% transfer images from RGB to YCbCr color space
 firIm = rgb2ycbcr(im2double(firIm));
 model.lastframe = firIm(:,:,channel); 
 for i=1:ceil((len-2)/model.batch_size)
@@ -23,11 +23,10 @@ for i=1:ceil((len-2)/model.batch_size)
         disp(['Calculating the model of the ',num2str(i),'th frame']);
     end
     s=tic;
-    %% warm 
+    %% warm up
     if param.istransform == 0 && i==1
         strNum=min(model.strNum, len-2);
         ind=sort(randperm(len-2, strNum)+i-1);
-        % ind=i:i+strNum*2-1;
         X_warm=zeros(imgsize(1),imgsize(2),strNum);
         for j = 1:strNum
             im_warm=im2double(imread([video_path,path(ind(j)+2).name]));
@@ -37,8 +36,7 @@ for i=1:ceil((len-2)/model.batch_size)
         model = warmstart(X_warm,model);
     elseif param.istransform == 1  && mod(i-1,model.interval_alignB)==0
         strNum=model.strNum;
-        % ind=sort(randperm(model.interval_alignB,strNum)+i-1);
-        ind=i:i+strNum-1;
+        ind=sort(randperm(model.interval_alignB,strNum)+i-1);
         X_warm=zeros(imgsize(1),imgsize(2),strNum);
         for j = 1:strNum
             im_warm=im2double(imread([video_path,path(ind(j)+2).name]));
@@ -57,20 +55,21 @@ for i=1:ceil((len-2)/model.batch_size)
         im_cur_Ycbcr(:, :, :, j) = rgb2ycbcr(im_cur); 
     end
     X = im_cur_Ycbcr(:, :, channel, :);
-        
+    
+    % main function
     if param.istransform == 0
-        [model,DerainY, Rain, Rains, omega] = OnlineMSCSC_new(X, param, model);% main function
-        % DerainY = OnlineMSCSC_SS_path(X, param, model); 
+        [model,DerainY, Rain, Rains, omega] = OnlineMSCSC_new(X, param, model);
     else
-        % align background via every 10 frames
-        [model,param,DerainY, Rain, Rains, omega] = OnlineMSCSC_trans(X, param, model);% main function
+        % align background via every interval frames
+        [model,param,DerainY, Rain, Rains, omega] = OnlineMSCSC_trans(X, param, model);
     end
     im_cur_Ycbcr(:,:,channel,:) = DerainY;
     Derain = ycbcr2rgb(im_cur_Ycbcr);
     t(i)=toc(s);
     sigma(i)=model.Sigma;
     b(i,:)=model.b;
-    %% show
+    
+    %% display results
     if display == 1
         for j = 1:n_frames
             I = Derain(:,:,:,j);

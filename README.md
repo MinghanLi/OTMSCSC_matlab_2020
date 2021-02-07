@@ -1,2 +1,4 @@
 # OTMSCSC_matlab_2020
-code will be released soon.
+1. GCO-v3.0
+
+2. 
