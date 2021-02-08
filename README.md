@@ -2,10 +2,10 @@
 
 This paper proposes a new online rain/snow removal method from surveillance videos by fully encoding the dynamic statistics of both rain/snow and background scenes in a video along time into the model, and realizing it with an online mode to make it potentially available to handle constantly coming streaming video sequence. 
 
-[Minghan Li](https://scholar.google.com/citations?user=LhdBgMAAAAAJ&hl=en&oi=ao) 
-[Xiangyong Cao](https://scholar.google.com/citations?user=IePM9RsAAAAJ&hl=en)
-[Qian Zhao](https://scholar.google.com/citations?user=vM6yGTEAAAAJ&hl=en)
-[Lei Zhang](https://scholar.google.com/citations?user=tAK5l1IAAAAJ&hl=en&oi=ao)
+[Minghan Li](https://scholar.google.com/citations?user=LhdBgMAAAAAJ&hl=en&oi=ao),
+[Xiangyong Cao](https://scholar.google.com/citations?user=IePM9RsAAAAJ&hl=en),
+[Qian Zhao](https://scholar.google.com/citations?user=vM6yGTEAAAAJ&hl=en),
+[Lei Zhang](https://scholar.google.com/citations?user=tAK5l1IAAAAJ&hl=en&oi=ao),
 [Deyu Meng](https://scholar.google.com/citations?user=an6w-64AAAAJ&hl=en&oi=ao)
 
 Please go to the [Homepage](https://sites.google.com/view/onlinetmscsc/) to obtain more information about our work.
@@ -13,7 +13,7 @@ Please go to the [Homepage](https://sites.google.com/view/onlinetmscsc/) to obta
 ## Overview
 The diagram of the proposed OTMS-CSC model implemented on a video with dynamic background. 
 
-![](https://github.com/MinghanLi/OTMSCSC_matlab_2020/tree/master/figures/1_dynamic.png)
+![fig](https://github.com/MinghanLi/OTMSCSC_matlab_2020/tree/master/figures/1_dynamic.png)
 
 ## Installation
 
@@ -35,6 +35,7 @@ The diagram of the proposed OTMS-CSC model implemented on a video with dynamic b
 ## Citation
 Please cite our paper if you find anything helpful,
 
+'''
 @article{Li2021OnlineRR,
   title={Online Rain/Snow Removal From Surveillance Videos},
   author={Minghan Li and Xiangyong Cao and Q. Zhao and L. Zhang and Deyu Meng},
@@ -43,7 +44,7 @@ Please cite our paper if you find anything helpful,
   volume={30},
   pages={2029-2044}
 }
-
+'''
 
 ## Contact
 For more information please contact liminghan0330@gmail.com
