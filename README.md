@@ -35,7 +35,7 @@ The diagram of the proposed OTMS-CSC model implemented on a video with dynamic b
 ## Citation
 Please cite our paper if you find anything helpful,
 
-'''
+```
 @article{Li2021OnlineRR,
   title={Online Rain/Snow Removal From Surveillance Videos},
   author={Minghan Li and Xiangyong Cao and Q. Zhao and L. Zhang and Deyu Meng},
@@ -44,7 +44,7 @@ Please cite our paper if you find anything helpful,
   volume={30},
   pages={2029-2044}
 }
-'''
+```
 
 ## Contact
 For more information please contact liminghan0330@gmail.com
