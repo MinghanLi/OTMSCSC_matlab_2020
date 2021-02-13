@@ -15,13 +15,13 @@ FX = gpuArray(fft2(single(X)));
 MU =  gpuArray.zeros(size(Filters),'single');
 Y =  gpuArray.zeros(size(Filters),'single');
 
-C_Filters = conj(Filters);            % [h,w,n_frames， K]
+C_Filters = conj(Filters);            % [h,w,n_frames, K]
 FTX = C_Filters.*repmat(FX,[1,1,1,K]);  % [h,w,n_frames,K]
 FTF  = sum(C_Filters.*Filters,4);     % [h,w,n_frames]
 
 while(iter < MaxIter && Cond)
     FR = FTX+rho*fft2(Y-MU);            % [h,w,n_frames,K]
-    FM = (FR-repmat(sum(Filters.*FR,3)./(rho+FTF), [1,1,K]) .*C_Filters)./rho;  % [h,w,n_frames,K]   
+    FM = (FR-repmat(sum(Filters.*FR,4)./(rho+FTF), [1,1,1,K]) .*C_Filters)./rho;  % [h,w,n_frames,K]   
     M = real(ifft2(FM));   % [h,w,n_frames,K]
     Y = max(M+MU-lambda/rho,0);  % [h,w,n_frames,K]
     MU = MU + M - Y;
@@ -36,7 +36,8 @@ while(iter < MaxIter && Cond)
 end
 M = double(gather(Y));
 Rains = double(gather(real(ifft2(FM.*Filters))));
-Rain = max(sum(Rains,4)-5e-3, 0); 
+% Rain = sum(Rains,4);
+Rain = max(sum(Rains,4)-5e-3, 0);
 clear F Filters lambda FX MU Y
 
 

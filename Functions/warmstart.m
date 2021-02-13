@@ -12,9 +12,10 @@ U = gather(U(:,1:r));
 V = oriV(:,1:r);
 L = U*V';
 %% Calculating the model
+% noi = max(X-X(:, [2:n,1]), 0);
 noi=X-L;
 model.Sigma = var(noi(:))*50*0.05; %a simple initialization of mog parameters
-model.D = InitDictNN( reshape(noi, [h,w,n]), model.f_size);     % [f_size,f_size,K]
+model.D = InitDictNN( reshape(noi, [h,w,n]), model.f_size, model.video_path);     % [f_size,f_size,K]
 
 %% Calculating A and B
 m=size(X,1); 
@@ -27,7 +28,7 @@ disp('Warm start is over. ');
 %% output
 model.A=A; model.B=B;
 model.U=U;
-model.v=repmat(mean(oriV(:,1:r)),[2,1]);
+model.v=repmat(mean(oriV(:,1:r)),[model.batch_size,1]);
 model.r=r;
 %% update dictionry online
 model.FA=zeros(length(model.f_size));
@@ -37,7 +38,7 @@ model.FB=zeros(max(model.f_size)^2,length(model.f_size));
 % model.FB=zeros(length(model.f_size)*max(model.f_size)^2,1);
 end
 
-function  Filters  = InitDictNN( R, f_size )
+function  Filters  = InitDictNN( R, f_size, video_path )
 % pca for initialize D
 FInd = FilterInd(f_size);
 maxf_size = max(f_size);
@@ -48,4 +49,11 @@ temp = Patches*Patches';
 [U, ~, ~] = svd(temp);
 D = Normalize(max(U(:,2:K+1),0)); 
 Filters = zeros(size(D)); Filters(FInd) = D(FInd);
+display_filters=1;
+if display_filters==1
+    Filters_Fold = reshape(Filters, [maxf_size, maxf_size*K]);
+    Filters_Fold = imresize(Filters_Fold, 10);
+    imshow(Filters_Fold*10)
+    imwrite(Filters_Fold*10, [video_path, 'filters.jpg'])
+end
 end

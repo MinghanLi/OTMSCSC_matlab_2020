@@ -36,7 +36,7 @@ for i=1:ceil((len-2)/model.batch_size)
         model = warmstart(X_warm,model);
     elseif param.istransform == 1  && mod(i-1,model.interval_alignB)==0
         strNum=model.strNum;
-        ind=sort(randperm(model.interval_alignB,strNum)+i-1);
+        ind=sort(randperm( len-2,strNum)+i-1);
         X_warm=zeros(imgsize(1),imgsize(2),strNum);
         for j = 1:strNum
             im_warm=im2double(imread([video_path,path(ind(j)+2).name]));
@@ -48,8 +48,8 @@ for i=1:ceil((len-2)/model.batch_size)
     clear X_warm
 
     model.frame = i;
-    n_frames = min((i+1)*model.batch_size, len-2) - i*batch_size;
-    im_cur_Ycbcr = torch.zeros([imgSize, n_frames]);  % [h, w, 3, n]
+    n_frames = min((i+1)*model.batch_size, len-2) - i*model.batch_size;
+    im_cur_Ycbcr = zeros([imgsize, n_frames]);  % [h, w, 3, n]
     for j = 1:n_frames
         im_cur = im2double(imread([video_path,path(i*model.batch_size+2+j).name]));
         im_cur_Ycbcr(:, :, :, j) = rgb2ycbcr(im_cur); 

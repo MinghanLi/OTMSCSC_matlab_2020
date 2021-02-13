@@ -12,7 +12,7 @@ function [I2warp,tau,residue,OmegaOut] = regImg(I1,I2,tau,weight,maxIts)
 I1 = double(I1);
 I2 = double(I2);
 sizeI = size(I1);
-sizeD = sizeI(1)*sizeI(2);
+sizeD = prod(sizeI);
 
  if nargin < 3 || isempty(tau)
     tau = zeros(6,1); % the default is affine transf.
