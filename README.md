@@ -13,7 +13,7 @@ Please go to the [Homepage](https://sites.google.com/view/onlinetmscsc/) to obta
 ## Overview
 The diagram of the proposed OTMS-CSC model implemented on a video with dynamic background. 
 
-![fig](https://github.com/MinghanLi/OTMSCSC_matlab_2020/tree/master/figures/1_dynamic.png)
+![image](https://github.com/MinghanLi/OTMSCSC_matlab_2020/tree/master/figures/1_dynamic.png)
 
 ## Installation
 
@@ -47,5 +47,5 @@ Please cite our paper if you find anything helpful,
 ```
 
 ## Contact
-For more information please contact liminghan0330@gmail.com
+For more information please contact liminghan0330@gmail.com or minghancs.li@connect.polyu.hk.
 
