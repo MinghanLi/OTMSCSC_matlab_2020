@@ -32,6 +32,9 @@ The diagram of the proposed OTMS-CSC model implemented on a video with dynamic b
 
 5. Run demo.m
 
+## YTVOS2019-Rain dataset
+- We build YTVOS2019-Rain dataset for video rain removal verification on video instance segmentation task. You can download YTVOS2019-Rain dataset from [here](https://drive.google.com/drive/folders/1ds-SGL___2GXiSN8HKJvlGJ60Q10QeW7?usp=sharing).
+
 ## Citation
 Please cite our paper if you find anything helpful,
 
