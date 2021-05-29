@@ -19,6 +19,8 @@ imgsize=size(firIm);
 firIm = rgb2ycbcr(im2double(firIm));
 model.lastframe = firIm(:,:,channel); 
 for i=1:ceil((len-2)/model.batch_size)
+    model.frame = i;
+    
     if mod(i,10)==0||i==1
         disp(['Calculating the model of the ',num2str(i),'th frame']);
     end
@@ -47,7 +49,6 @@ for i=1:ceil((len-2)/model.batch_size)
     end
     clear X_warm
 
-    model.frame = i;
     n_frames = min((i+1)*model.batch_size, len-2) - i*model.batch_size;
     im_cur_Ycbcr = zeros([imgsize, n_frames]);  % [h, w, 3, n]
     for j = 1:n_frames
