@@ -28,9 +28,12 @@ The diagram of the proposed OTMS-CSC model implemented on a video with dynamic b
 
 - To test your installation of GCO_MATLAB, run the gco-v3.0\matlab\GCO_UnitTest command.
 
-4. Download dataset (NTURain or your own videos) and put the file into the input folder
+4. Compile spams-matlab 
+- Please complie it according to spams-matlab/README.md
 
-5. Run demo.m
+5. Download dataset (NTURain or your own videos) and put the file into the input folder
+
+6. Run demo.m
 
 ## YTVOS2019-Rain dataset
 - We build YTVOS2019-Rain dataset for video rain removal verification on video instance segmentation task. You can download YTVOS2019-Rain dataset from [here](https://drive.google.com/drive/folders/1ds-SGL___2GXiSN8HKJvlGJ60Q10QeW7?usp=sharing).
