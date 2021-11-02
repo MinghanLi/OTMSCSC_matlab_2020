@@ -38,7 +38,7 @@ for i=1:ceil((len-2)/model.batch_size)
         model = warmstart(X_warm,model);
     elseif param.istransform == 1  && mod(i-1,model.interval_alignB)==0
         strNum=model.strNum;
-        ind=sort(randperm( len-2,strNum)+i-1);
+        ind=sort(randi([max(i-strNum, 1), min(i+strNum, len)], strNum, 1));
         X_warm=zeros(imgsize(1),imgsize(2),strNum);
         for j = 1:strNum
             im_warm=im2double(imread([video_path,path(ind(j)+2).name]));
