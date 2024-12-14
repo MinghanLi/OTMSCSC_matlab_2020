@@ -22,11 +22,15 @@ The diagram of the proposed OTMS-CSC model implemented on a video with dynamic b
   2. Install Matlab 
   
   3. Compile GCO-v3.0
+     
     - Download [gco-v3.0 library](https://vision.cs.uwaterloo.ca/code/), and unzip the file.
+     
     - Start Matlab, and make gco-v3.0\matlab your working directory or add it to your path.
+    
     - To test your installation of GCO_MATLAB, run the gco-v3.0\matlab\GCO_UnitTest command.
   
-  4. Compile spams-matlab 
+  4. Compile spams-matlab
+     
     - Please complie it according to spams-matlab/README.md
   
   5. Download dataset ([NTURain](https://github.com/zsyOAOA/S2VD) or your own videos) and put the file into the input folder
